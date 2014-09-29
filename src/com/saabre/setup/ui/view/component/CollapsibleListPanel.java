@@ -41,7 +41,7 @@ public class CollapsibleListPanel extends WebPanel {
         newPanel = new WebCollapsiblePane(name, panel);
         
         newPanel.setExpanded(false);
-        newPanel.setMinimumWidth(100);
+        newPanel.setMinimumWidth(300);
         
         listPanel.add(newPanel);
         listPanel.updateUI();
