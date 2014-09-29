@@ -6,7 +6,8 @@
 package com.saabre.setup.ui;
 
 import com.alee.laf.WebLookAndFeel;
-import com.saabre.setup.ui.view.MainView;
+import com.saabre.setup.helper.FileHelper;
+import com.saabre.setup.ui.view.MainFrame;
 import javax.swing.SwingUtilities;
 
 /**
@@ -28,8 +29,10 @@ public class SetupGenUi {
                 // Install WebLaF as application L&F
                 WebLookAndFeel.install ();
 
-                // Create you Swing application here
-                new MainView().setVisible(true);
+                // -- Global configuration --
+                FileHelper.setRootFolder("../setup-gen/data/");
+                
+                new MainFrame().setVisible(true);
             }
         } );
     }
