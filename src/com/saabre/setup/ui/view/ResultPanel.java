@@ -16,6 +16,7 @@ import com.saabre.setup.system.module.analysis.AnalysisModule;
 import com.saabre.setup.system.module.remote.RemoteModule;
 import com.saabre.setup.system.module.script.ScriptModule;
 import com.saabre.setup.ui.view.component.CollapsibleListPanel;
+import com.saabre.setup.ui.view.component.CollapsibleListPanel.Options;
 import com.saabre.setup.ui.view.module.AnalysisResultPanel;
 import com.saabre.setup.ui.view.module.RemoteResultPanel;
 import com.saabre.setup.ui.view.module.ScriptResultPanel;
@@ -51,19 +52,33 @@ public class ResultPanel extends JPanel implements MainController.Listener
     
     private void addModule(Module module) 
     {
+        // Initialisation --
         WebPanel internalPane = null;
+        Options options = new CollapsibleListPanel.Options();
         
+        options.name = NameHelper.upper(module.getName());
+        options.size = 500;
+        
+        // Test module type --
         if(module instanceof ScriptModule)
+        {
             internalPane = new ScriptResultPanel((ScriptModule) module);
+        }
         else if(module instanceof RemoteModule)
+        {
             internalPane = new RemoteResultPanel((RemoteModule) module);
+            options.expanded = true;
+        }
         else if(module instanceof AnalysisModule)
+        {
             internalPane = new AnalysisResultPanel((AnalysisModule) module);
-       
-        if(module == null)
+        }
+        
+        // Security check --
+        if(internalPane == null)
             return;
         
-        moduleListPanel.addPanel(NameHelper.upper(module.getName()), internalPane);
+        moduleListPanel.addPanel(internalPane, options);
     }
     
     // -- Core methods --

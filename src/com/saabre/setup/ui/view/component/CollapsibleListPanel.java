@@ -8,6 +8,9 @@ package com.saabre.setup.ui.view.component;
 import com.alee.extended.panel.WebCollapsiblePane;
 import com.alee.laf.panel.WebPanel;
 import com.saabre.setup.helper.NameHelper;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.SpringLayout;
 
 /**
@@ -18,7 +21,7 @@ public class CollapsibleListPanel extends WebPanel {
     
     // -- Attributes --
     
-    private final WebPanel listPanel;
+    private final List<WebPanel> panelList;
     private final SpringLayout layout;
     private WebPanel lastPanel = null;
     
@@ -26,25 +29,32 @@ public class CollapsibleListPanel extends WebPanel {
     
     public CollapsibleListPanel()
     {
-        listPanel = new WebPanel();
+        panelList = new ArrayList<>();
         layout = new SpringLayout();
-        listPanel.setLayout(layout);
-        add(listPanel);
+        setLayout(layout);
     }
     
     // -- Methods --
     
-    public void addPanel(String name, WebPanel panel)
+    public static class Options
+    {
+        public String name = "";
+        public boolean expanded = false;
+        public int size = 300;
+    }
+    
+    public void addPanel(WebPanel panel, Options options)
     {
         // Configure collapsible panel --
         WebCollapsiblePane newPanel;        
-        newPanel = new WebCollapsiblePane(name, panel);
+        newPanel = new WebCollapsiblePane(options.name, panel);
         
-        newPanel.setExpanded(false);
-        newPanel.setMinimumWidth(300);
+        newPanel.setExpanded(options.expanded);
+        newPanel.setMinimumWidth(options.size);
         
-        listPanel.add(newPanel);
-        listPanel.updateUI();
+        add(newPanel);
+        panelList.add(panel);
+        updateUI();
         
         // Configure panel location --
         
@@ -53,7 +63,7 @@ public class CollapsibleListPanel extends WebPanel {
             layout.putConstraint(
                 SpringLayout.NORTH, newPanel,
                 5,
-                SpringLayout.NORTH, listPanel);
+                SpringLayout.NORTH, this);
         }
         else // Other modules --
         {
@@ -66,11 +76,27 @@ public class CollapsibleListPanel extends WebPanel {
         layout.putConstraint(
             SpringLayout.HORIZONTAL_CENTER, newPanel, 
             0, 
-            SpringLayout.HORIZONTAL_CENTER, listPanel);
-
+            SpringLayout.HORIZONTAL_CENTER, this);
+        
         lastPanel = newPanel;
     }
     
+    public void setFinalConstraint()
+    {
+        if(lastPanel != null)
+        {
+            layout.putConstraint(
+                SpringLayout.SOUTH, this, 
+                0, 
+                SpringLayout.SOUTH, lastPanel);
+        }
+    }
     
+    // -- Getters and setters --
+    
+    public WebPanel getPanel(int index)
+    {
+        return panelList.get(index);
+    }
     
 }
