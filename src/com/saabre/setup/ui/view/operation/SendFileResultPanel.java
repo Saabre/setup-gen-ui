@@ -9,6 +9,7 @@ import com.alee.laf.text.WebTextArea;
 import com.saabre.setup.helper.FileHelper;
 import com.saabre.setup.operation.remote.SendFile;
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 
 /**
@@ -22,9 +23,12 @@ public class SendFileResultPanel extends OperationResultPanel implements SendFil
     
     public SendFileResultPanel(SendFile operation) 
     {
+        Font f = new Font("Monospaced", Font.PLAIN, 12);
+        
         text = new WebTextArea();
         text.setForeground(Color.white);
         text.setBackground(Color.black);
+        text.setFont(f);
         add(text);
         
         fileCount = 0;

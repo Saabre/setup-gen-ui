@@ -9,6 +9,7 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.text.WebTextArea;
 import com.saabre.setup.operation.remote.RunCommand;
 import java.awt.Color;
+import java.awt.Font;
 
 /**
  *
@@ -20,9 +21,12 @@ public class RunCommandResultPanel extends OperationResultPanel implements RunCo
     
     public RunCommandResultPanel(RunCommand runCommand) 
     {
+        Font f = new Font("Monospaced", Font.PLAIN, 12);
+        
         text = new WebTextArea();
         text.setForeground(Color.white);
         text.setBackground(Color.black);
+        text.setFont(f);
         add(text);
         
         runCommand.setListener(this);
