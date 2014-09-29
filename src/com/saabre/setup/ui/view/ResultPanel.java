@@ -5,8 +5,6 @@
  */
 package com.saabre.setup.ui.view;
 
-import com.alee.extended.panel.WebCollapsiblePane;
-import com.alee.laf.button.WebButton;
 import com.alee.laf.panel.WebPanel;
 import com.saabre.setup.helper.NameHelper;
 import com.saabre.setup.system.base.Module;
@@ -21,9 +19,9 @@ import com.saabre.setup.ui.view.module.AnalysisResultPanel;
 import com.saabre.setup.ui.view.module.RemoteResultPanel;
 import com.saabre.setup.ui.view.module.ScriptResultPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
 
 /**
  *
