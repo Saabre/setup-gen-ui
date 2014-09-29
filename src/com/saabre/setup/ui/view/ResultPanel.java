@@ -12,6 +12,13 @@ import com.saabre.setup.helper.NameHelper;
 import com.saabre.setup.system.base.Module;
 import com.saabre.setup.system.controller.ConfigController;
 import com.saabre.setup.system.controller.MainController;
+import com.saabre.setup.system.module.analysis.AnalysisModule;
+import com.saabre.setup.system.module.remote.RemoteModule;
+import com.saabre.setup.system.module.script.ScriptModule;
+import com.saabre.setup.ui.view.component.CollapsibleListPanel;
+import com.saabre.setup.ui.view.module.AnalysisResultPanel;
+import com.saabre.setup.ui.view.module.RemoteResultPanel;
+import com.saabre.setup.ui.view.module.ScriptResultPanel;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JPanel;
@@ -28,10 +35,7 @@ public class ResultPanel extends JPanel implements MainController.Listener
     private MainController mainController;
     private ConfigController configController;
     private List<Module> moduleList;
-    
-    private WebPanel moduleListPanel;
-    private SpringLayout moduleLayout;
-    private WebPanel lastModulePanel = null;
+    private CollapsibleListPanel moduleListPanel;
     
     // -- Constructor --
     
@@ -41,48 +45,25 @@ public class ResultPanel extends JPanel implements MainController.Listener
         setLayout(new BorderLayout());
         
         // Set module panel --
-        moduleListPanel = new WebPanel();
-        moduleLayout = new SpringLayout();
-        moduleListPanel.setLayout(moduleLayout);
+        moduleListPanel = new CollapsibleListPanel();
         add(moduleListPanel);
     }    
     
     private void addModule(Module module) 
     {
-        final WebPanel pane = new WebPanel();
-        pane.add(new WebButton("Test"));
+        WebPanel internalPane = null;
         
-        final WebCollapsiblePane modulePane = new WebCollapsiblePane(
-                NameHelper.upper(module.getName()), pane);
+        if(module instanceof ScriptModule)
+            internalPane = new ScriptResultPanel((ScriptModule) module);
+        else if(module instanceof RemoteModule)
+            internalPane = new RemoteResultPanel((RemoteModule) module);
+        else if(module instanceof AnalysisModule)
+            internalPane = new AnalysisResultPanel((AnalysisModule) module);
+       
+        if(module == null)
+            return;
         
-        modulePane.setExpanded(false);
-        modulePane.setMinimumWidth(100);
-        
-        moduleListPanel.add(modulePane);
-        moduleListPanel.updateUI();
-        
-        if(lastModulePanel == null) // First module --
-        {
-            moduleLayout.putConstraint(
-                SpringLayout.NORTH, modulePane,
-                5,
-                SpringLayout.NORTH, moduleListPanel);
-        }
-        else // Other modules --
-        {
-            moduleLayout.putConstraint(
-                SpringLayout.NORTH, modulePane,
-                5,
-                SpringLayout.SOUTH, lastModulePanel);
-        }
-        
-        moduleLayout.putConstraint(
-            SpringLayout.HORIZONTAL_CENTER, modulePane, 
-            0, 
-            SpringLayout.HORIZONTAL_CENTER, moduleListPanel);
-        
-        
-        lastModulePanel = modulePane;
+        moduleListPanel.addPanel(NameHelper.upper(module.getName()), internalPane);
     }
     
     // -- Core methods --
