@@ -5,17 +5,37 @@
  */
 package com.saabre.setup.ui.view.operation;
 
-import com.alee.laf.label.WebLabel;
+import com.alee.laf.text.WebTextArea;
+import com.saabre.setup.helper.FileHelper;
 import com.saabre.setup.operation.remote.SendFile;
+import java.awt.Color;
+import java.io.File;
 
 /**
  *
  * @author Lifaen
  */
-public class SendFileResultPanel extends OperationResultPanel {
+public class SendFileResultPanel extends OperationResultPanel implements SendFile.Listener {
 
-    public SendFileResultPanel(SendFile sendFile) {
-        add(new WebLabel("Test"));
-    }
+    private final WebTextArea text;
+    private int fileCount;
     
+    public SendFileResultPanel(SendFile operation) 
+    {
+        text = new WebTextArea();
+        text.setForeground(Color.white);
+        text.setBackground(Color.black);
+        add(text);
+        
+        fileCount = 0;
+        
+        operation.setListener(this);
+    }
+
+    @Override
+    public void onFileSent(File file) {
+        String size = FileHelper.byteCountToReadable(file.length(), true);
+        text.append((fileCount == 0 ? "" : "\n") + file.getName() +" sent (" + size +")");
+        fileCount++;
+    }
 }
