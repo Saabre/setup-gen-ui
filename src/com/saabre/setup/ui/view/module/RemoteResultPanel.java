@@ -97,39 +97,12 @@ public class RemoteResultPanel extends ModuleResultPanel implements RemoteModule
         rule.gridx = 0;
         rule.gridy = 2;
         rule.gridwidth = 2;
-        add(profileListPanel, rule);
+        add(listPanel, rule);
         
         // Load Profile List --
         for(Profile profile : module.getProfileList())
         {
-            ProfilePanel panel = new ProfilePanel(profile);
-            CollapsibleListPanel.Options options = new CollapsibleListPanel.Options();
-
-            options.name = NameHelper.upper(profile.getName());
-            options.expanded = true;
-            options.size = 400;
-
-            profileListPanel.addPanel(panel, options);
-        }
-        
-        profileListPanel.setFinalConstraint();
-    }
-    
-    // -- Profile Panel --
-    
-    private class ProfilePanel extends WebPanel
-    {
-        private Profile profile;
-        public CollapsibleListPanel operationList = new CollapsibleListPanel();
-        private int currentOperationIndex = 0;
-        
-        public ProfilePanel(Profile profile)
-        {
-            this.profile = profile;
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
-            
-            add(operationList);
+            listPanel.addSeparator(NameHelper.upper(profile.getName()));
             
             for(RemoteOperation operation : profile.getRemoteOperationList())
             {
@@ -155,23 +128,14 @@ public class RemoteResultPanel extends ModuleResultPanel implements RemoteModule
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                options.expanded = true;
-                options.size = 300;
+                options.expanded = false;
+                options.size = 400;
 
-                operationList.addPanel(panel, options);
+                listPanel.addPanel(panel, options);
             }
-            
-            operationList.setFinalConstraint();
         }
         
-        public void onOperationStart(RemoteOperation operation)
-        {
-            
-        }
-
-        private void onOperationEnd() {
-            
-        }
+        listPanel.setFinalConstraint();
     }
     
     // Events --
@@ -206,14 +170,12 @@ public class RemoteResultPanel extends ModuleResultPanel implements RemoteModule
 
     @Override
     public void onOperationStart(RemoteOperation operation) {
-        ProfilePanel panel = (ProfilePanel) profileListPanel.getPanel(currentProfileIndex);
-        panel.onOperationStart(operation);
+        
     }
 
     @Override
     public void onOperationEnd() {
-        ProfilePanel panel = (ProfilePanel) profileListPanel.getPanel(currentProfileIndex);
-        panel.onOperationEnd();
+        
     }
     
 }

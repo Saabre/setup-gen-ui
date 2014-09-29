@@ -16,13 +16,13 @@ public class ModuleResultPanel extends WebPanel {
     
     // -- Attributes --
     
-    protected CollapsibleListPanel profileListPanel;
+    protected CollapsibleListPanel listPanel;
     
     // -- Methods --
     
     protected void loadProfileListPanel()
     {
-        profileListPanel = new CollapsibleListPanel();
-        add(profileListPanel);
+        listPanel = new CollapsibleListPanel();
+        add(listPanel);
     }
 }

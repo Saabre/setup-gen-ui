@@ -6,6 +6,7 @@
 package com.saabre.setup.ui.view.component;
 
 import com.alee.extended.panel.WebCollapsiblePane;
+import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
 import com.saabre.setup.helper.NameHelper;
 import java.awt.BorderLayout;
@@ -33,6 +34,8 @@ public class CollapsibleListPanel extends WebPanel {
         layout = new SpringLayout();
         setLayout(layout);
     }
+
+    
     
     // -- Methods --
     
@@ -58,6 +61,10 @@ public class CollapsibleListPanel extends WebPanel {
         
         // Configure panel location --
         
+        setPanelLocation(newPanel);
+    }
+    
+    private void setPanelLocation(WebPanel newPanel) {
         if(lastPanel == null) // First module --
         {
             layout.putConstraint(
@@ -79,6 +86,17 @@ public class CollapsibleListPanel extends WebPanel {
             SpringLayout.HORIZONTAL_CENTER, this);
         
         lastPanel = newPanel;
+    }
+    
+    public void addSeparator(String name) {
+        WebPanel panel = new WebPanel();
+        WebLabel label = new WebLabel(name, WebLabel.CENTER);
+        
+        label.setBoldFont();
+        
+        panel.add(label);
+        add(panel);  
+        setPanelLocation(panel);
     }
     
     public void setFinalConstraint()
