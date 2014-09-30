@@ -7,8 +7,8 @@ package com.saabre.setup.ui.view.module;
 
 import com.saabre.setup.helper.FileHelper;
 import com.saabre.setup.system.base.Profile;
-import com.saabre.setup.system.module.analysis.AnalysisModule;
-import com.saabre.setup.system.module.analysis.AnalysisOperation;
+import com.saabre.setup.module.analysis.AnalysisModule;
+import com.saabre.setup.module.analysis.AnalysisOperation;
 
 /**
  *
