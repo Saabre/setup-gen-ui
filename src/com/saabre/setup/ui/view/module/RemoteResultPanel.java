@@ -131,8 +131,6 @@ public class RemoteResultPanel extends ModuleResultPanel implements RemoteModule
                 listPanel.addPanel(panel, options);
             }
         }
-        
-        listPanel.setFinalConstraint();
     }
     
     // Events --

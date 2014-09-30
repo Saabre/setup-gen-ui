@@ -99,8 +99,6 @@ public class ResultPanel extends JPanel implements MainController.Listener
                 addModule(module);
             }
             
-            moduleListPanel.setFinalConstraint();
-            
         } catch (Exception ex) {
             ex.printStackTrace();
         }

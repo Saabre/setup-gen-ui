@@ -36,12 +36,14 @@ public class CollapsibleListPanel extends WebPanel {
     {
         panelList = new ArrayList<>();
         layout = new GridBagLayout();
+        setLayout(layout);
         
         rule = new GridBagConstraints();
+        setFinalConstraint();
         rule.weighty = 0;
+        rule.fill = GridBagConstraints.VERTICAL;
         
         index = 0;
-        setLayout(layout);
     }
     
     // -- Methods --
@@ -54,10 +56,11 @@ public class CollapsibleListPanel extends WebPanel {
         index++;
     }
 
-    public void setFinalConstraint() {
+    private void setFinalConstraint() {
         rule.weighty = 2;
         rule.fill = GridBagConstraints.VERTICAL;
-        addItem(new WebPanel());
+        rule.gridy = 100;
+        add(new WebPanel(), rule);
     }
     
     public static class Options
