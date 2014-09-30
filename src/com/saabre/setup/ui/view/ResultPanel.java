@@ -21,6 +21,7 @@ import com.saabre.setup.ui.view.module.ScriptResultPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -42,10 +43,13 @@ public class ResultPanel extends JPanel implements MainController.Listener
     {
         // Set main layout --
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
         
         // Set module panel --
         moduleListPanel = new CollapsibleListPanel();
         add(moduleListPanel);
+        
+        // Set background --
     }    
     
     private void addModule(Module module) 

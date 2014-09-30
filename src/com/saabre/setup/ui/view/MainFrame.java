@@ -5,11 +5,16 @@
  */
 package com.saabre.setup.ui.view;
 
+import com.alee.extended.layout.OverlayLayout;
+import com.alee.extended.progress.WebProgressOverlay;
+import com.alee.laf.button.WebButton;
 import com.alee.laf.menu.WebMenu;
 import com.alee.laf.menu.WebMenuBar;
 import com.alee.laf.menu.WebMenuItem;
 import com.alee.laf.scroll.WebScrollBar;
 import com.alee.laf.scroll.WebScrollPane;
+import com.alee.laf.toolbar.ToolbarStyle;
+import com.alee.laf.toolbar.WebToolBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,8 +35,10 @@ public class MainFrame extends JFrame {
     
     private ResultPanel panel;
     
-    WebMenuItem itemLoad;
-    WebMenuItem itemRun;
+    WebButton itemLoad;
+    WebButton itemRun;
+    
+    WebProgressOverlay progressOverlay;
     
     // -- Constructors --
     
@@ -41,7 +48,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         setSize(800, 600);
         
-        // Load menubar --
+        /* Load menubar --
         WebMenuBar menubar = new WebMenuBar();
         
             WebMenu menuFile = new WebMenu("Fichier");
@@ -59,28 +66,46 @@ public class MainFrame extends JFrame {
             menubar.add(menuFile);
             
         add(menubar, BorderLayout.NORTH);
+        //*/
+        
+        //* Load actionbar --
+        WebToolBar toolbar = new WebToolBar();
+        
+        toolbar.setToolbarStyle(ToolbarStyle.attached);
+        toolbar.setFloatable(false);
+            
+            itemLoad = new WebButton("Charger");
+            itemLoad.addActionListener(new LoadListener());
+
+            itemRun = new WebButton("Lancer");
+            itemRun.addActionListener(new RunListener());
+            itemRun.setEnabled(false);
+                
+            toolbar.add(itemLoad);
+            toolbar.add(itemRun);
+            
+        add(toolbar, BorderLayout.NORTH);
+        //*/
         
         // Load ResultPanel --
         panel = new ResultPanel();
+        
+        progressOverlay = new WebProgressOverlay();
+        progressOverlay.setProgressWidth(35);
         
         WebScrollPane scrollPanel = new WebScrollPane(panel, false, true);
         scrollPanel.setPreferredSize(new Dimension(0, 0));
         scrollPanel.getVerticalScrollBar().setUnitIncrement(50);
         
         add(scrollPanel, BorderLayout.CENTER);
+        progressOverlay.setComponent(scrollPanel);
+        add(progressOverlay);
         
         // Events --
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //* Shortcut --
-        SwingUtilities.invokeLater ( new Runnable ()
-        {
-            public void run ()
-            {
-                panel.load();
-                panel.run();
-            }
-        } ); 
+        
         //*/
     }
     
@@ -91,9 +116,22 @@ public class MainFrame extends JFrame {
     private class LoadListener implements ActionListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            panel.load();
-            itemRun.setEnabled(true);
+        public void actionPerformed(ActionEvent e) {            
+            new Thread() {
+
+                @Override
+                public void run() 
+                {
+                    progressOverlay.setShowLoad(true);
+                    itemLoad.setEnabled(false);
+
+                    panel.load();
+                    itemRun.setEnabled(true);
+
+                    progressOverlay.setShowLoad(false);
+                }
+
+            }.start();
         }
     }
 
@@ -101,7 +139,17 @@ public class MainFrame extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panel.run();
+            
+            new Thread() {
+
+                @Override
+                public void run() 
+                {
+                    panel.run();
+                    itemRun.setEnabled(false);
+                }
+                
+            }.start();
         }
     }
     
