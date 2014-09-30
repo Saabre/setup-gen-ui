@@ -21,10 +21,7 @@ import com.saabre.setup.ui.view.operation.RunCommandResultPanel;
 import com.saabre.setup.ui.view.operation.SendFileResultPanel;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 
 /**
  *

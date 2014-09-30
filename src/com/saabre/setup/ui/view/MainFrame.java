@@ -8,11 +8,16 @@ package com.saabre.setup.ui.view;
 import com.alee.laf.menu.WebMenu;
 import com.alee.laf.menu.WebMenuBar;
 import com.alee.laf.menu.WebMenuItem;
+import com.alee.laf.scroll.WebScrollBar;
+import com.alee.laf.scroll.WebScrollPane;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -57,7 +62,12 @@ public class MainFrame extends JFrame {
         
         // Load ResultPanel --
         panel = new ResultPanel();
-        add(panel, BorderLayout.CENTER);
+        
+        WebScrollPane scrollPanel = new WebScrollPane(panel, false, true);
+        scrollPanel.setPreferredSize(new Dimension(0, 0));
+        scrollPanel.getVerticalScrollBar().setUnitIncrement(50);
+        
+        add(scrollPanel, BorderLayout.CENTER);
         
         // Events --
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
