@@ -6,17 +6,53 @@
 package com.saabre.setup.ui.view.module;
 
 import com.alee.laf.label.WebLabel;
+import com.saabre.setup.helper.FileHelper;
+import com.saabre.setup.system.base.Profile;
 import com.saabre.setup.system.module.analysis.AnalysisModule;
+import com.saabre.setup.system.module.analysis.AnalysisOperation;
+import java.awt.Dimension;
 
 /**
  *
  * @author Lifaen
  */
-public class AnalysisResultPanel extends ModuleResultPanel {
+public class AnalysisResultPanel extends ModuleResultPanel implements AnalysisModule.Listener {
+    
+    // -- Attributes --
+    
+    private final AnalysisModule module;
+    
+    private final WebViewPanel webView;
 
+    // -- Constructors --
+    
     public AnalysisResultPanel(AnalysisModule module) 
     {
-        add(new WebLabel("Test"));        
+        this.module = module;
+        module.setListener(this);
+        
+        webView = new WebViewPanel();
+        add(webView);
+        
+    }
+
+    // -- Events --
+    
+    @Override
+    public void onProfileStart(Profile profile) {
+        
+    }
+
+    @Override
+    public void onProfileEnd() {
+        
+    }
+
+    @Override
+    public void onReportBuilt(AnalysisOperation operation) {
+        String path = "file:///"+ FileHelper.getAbsoluteAnalyisOutputFolder() +"Report.html";
+        System.out.println(path);
+        webView.loadURL(path);
     }
     
 }

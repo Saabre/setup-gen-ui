@@ -21,6 +21,10 @@ public class SetupGenUi {
      */
     public static void main(String[] args) 
     {
+        // -- Global configuration --
+        FileHelper.setRootFolder("../setup-gen/data/");
+        FileHelper.setAbsoluteRootFolder("F:/Workspace/setup-gen/data/");
+                
         // You should work with UI (including installing L&F) inside Event Dispatch Thread (EDT)
         SwingUtilities.invokeLater ( new Runnable ()
         {
@@ -28,9 +32,6 @@ public class SetupGenUi {
             {
                 // Install WebLaF as application L&F
                 WebLookAndFeel.install ();
-
-                // -- Global configuration --
-                FileHelper.setRootFolder("../setup-gen/data/");
                 
                 new MainFrame().setVisible(true);
             }
