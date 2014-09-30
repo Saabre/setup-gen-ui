@@ -5,7 +5,6 @@
  */
 package com.saabre.setup.ui.view.module;
 
-import com.alee.extended.progress.WebStepProgress;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
 import com.saabre.setup.helper.NameHelper;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.border.Border;
 
 /**
  *

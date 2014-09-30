@@ -5,7 +5,6 @@
  */
 package com.saabre.setup.ui.view.operation;
 
-import com.alee.laf.label.WebLabel;
 import com.alee.laf.text.WebTextArea;
 import com.saabre.setup.operation.remote.RunCommand;
 import java.awt.Color;

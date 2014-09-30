@@ -19,7 +19,6 @@ import com.saabre.setup.ui.view.module.AnalysisResultPanel;
 import com.saabre.setup.ui.view.module.RemoteResultPanel;
 import com.saabre.setup.ui.view.module.ScriptResultPanel;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;

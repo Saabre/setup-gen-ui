@@ -5,12 +5,10 @@
  */
 package com.saabre.setup.ui.view.module;
 
-import com.alee.laf.label.WebLabel;
 import com.saabre.setup.helper.FileHelper;
 import com.saabre.setup.system.base.Profile;
 import com.saabre.setup.system.module.analysis.AnalysisModule;
 import com.saabre.setup.system.module.analysis.AnalysisOperation;
-import java.awt.Dimension;
 
 /**
  *
