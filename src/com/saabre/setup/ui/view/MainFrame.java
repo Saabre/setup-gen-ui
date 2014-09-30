@@ -96,11 +96,9 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //* Shortcut --
-        
+        onLoad();
         //*/
     }
-    
-    // -- Methods --
     
     // -- Events --
 
@@ -108,21 +106,7 @@ public class MainFrame extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {            
-            new Thread() {
-
-                @Override
-                public void run() 
-                {
-                    progressOverlay.setShowLoad(true);
-                    itemLoad.setEnabled(false);
-
-                    panel.load();
-                    itemRun.setEnabled(true);
-
-                    progressOverlay.setShowLoad(false);
-                }
-
-            }.start();
+            onLoad();
         }
     }
 
@@ -130,18 +114,43 @@ public class MainFrame extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            
-            new Thread() {
-
-                @Override
-                public void run() 
-                {
-                    panel.run();
-                    itemRun.setEnabled(false);
-                }
-                
-            }.start();
+            onRun();
         }
+    }
+    
+    // -- Methods --
+    
+    private void onLoad()
+    {
+        new Thread() {
+
+            @Override
+            public void run() 
+            {
+                progressOverlay.setShowLoad(true);
+                itemLoad.setEnabled(false);
+
+                panel.load();
+                itemRun.setEnabled(true);
+
+                progressOverlay.setShowLoad(false);
+            }
+
+        }.start();
+    }
+    
+    private void onRun()
+    {
+        new Thread() {
+
+            @Override
+            public void run() 
+            {
+                panel.run();
+                itemRun.setEnabled(false);
+            }
+
+        }.start();
     }
     
 }

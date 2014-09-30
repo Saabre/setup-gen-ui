@@ -76,12 +76,14 @@ public class CollapsibleListPanel extends WebPanel {
         WebCollapsiblePane newPanel;        
         newPanel = new WebCollapsiblePane(options.name, panel);
         
-        newPanel.setExpanded(options.expanded);
         newPanel.setMinimumWidth(options.size);
+        newPanel.setExpanded(false);
         
         addItem(newPanel);        
         panelList.add(panel);
         updateUI();
+        
+        newPanel.setExpanded(options.expanded, true);
     }
     
     public void addSeparator(String name) {

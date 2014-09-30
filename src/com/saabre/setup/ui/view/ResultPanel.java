@@ -59,16 +59,17 @@ public class ResultPanel extends JPanel implements MainController.Listener
         
         options.name = NameHelper.upper(module.getName());
         options.size = 500;
+        options.expanded = true;
         
         // Test module type --
         if(module instanceof ScriptModule)
         {
             internalPane = new ScriptResultPanel((ScriptModule) module);
+            options.expanded = false;
         }
         else if(module instanceof RemoteModule)
         {
             internalPane = new RemoteResultPanel((RemoteModule) module);
-            options.expanded = true;
         }
         else if(module instanceof AnalysisModule)
         {
