@@ -14,8 +14,10 @@ import com.saabre.setup.operation.remote.SendFile;
 import com.saabre.setup.system.base.Profile;
 import com.saabre.setup.module.remote.RemoteModule;
 import com.saabre.setup.module.remote.RemoteOperation;
+import com.saabre.setup.operation.remote.GetFile;
 import com.saabre.setup.ui.view.component.CollapsibleListPanel;
 import com.saabre.setup.ui.view.component.CollapsibleListPanel.Options;
+import com.saabre.setup.ui.view.operation.GetFileResultPanel;
 import com.saabre.setup.ui.view.operation.OperationResultPanel;
 import com.saabre.setup.ui.view.operation.RunCommandResultPanel;
 import com.saabre.setup.ui.view.operation.SendFileResultPanel;
@@ -112,6 +114,10 @@ public class RemoteResultPanel extends ModuleResultPanel implements RemoteModule
                 else if(operation instanceof SendFile)
                 {
                     panel = new SendFileResultPanel((SendFile) operation);
+                }
+                else if(operation instanceof GetFile)
+                {
+                    panel = new GetFileResultPanel((GetFile) operation);
                 }
                 else
                 {

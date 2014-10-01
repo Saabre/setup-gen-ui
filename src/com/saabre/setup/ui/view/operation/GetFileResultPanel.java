@@ -6,28 +6,28 @@
 package com.saabre.setup.ui.view.operation;
 
 import com.saabre.setup.helper.FileHelper;
-import com.saabre.setup.operation.remote.SendFile;
+import com.saabre.setup.operation.remote.GetFile;
 import java.io.File;
 
 /**
  *
  * @author Lifaen
  */
-public class SendFileResultPanel extends ConsoleResultPanel implements SendFile.Listener {
+public class GetFileResultPanel extends ConsoleResultPanel implements GetFile.Listener {
 
     private int fileCount;
     
-    public SendFileResultPanel(SendFile operation) 
+    public GetFileResultPanel(GetFile operation) 
     {
-        super();        
+        super();
         fileCount = 0;
         operation.setListener(this);
     }
 
     @Override
-    public void onFileSent(File file) {
+    public void onFileGot(File file) {
         String size = FileHelper.byteCountToReadable(file.length(), true);
-        text.append((fileCount == 0 ? "" : "\n") + file.getName() +" sent (" + size +")");
+        text.append((fileCount == 0 ? "" : "\n") + file.getName() +" arrived (" + size +")");
         fileCount++;
     }
 }

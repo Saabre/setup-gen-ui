@@ -5,29 +5,18 @@
  */
 package com.saabre.setup.ui.view.operation;
 
-import com.alee.laf.text.WebTextArea;
 import com.saabre.setup.operation.remote.RunCommand;
-import java.awt.Color;
-import java.awt.Font;
 
 /**
  *
  * @author Lifaen
  */
-public class RunCommandResultPanel extends OperationResultPanel implements RunCommand.Listener {
+public class RunCommandResultPanel extends ConsoleResultPanel implements RunCommand.Listener {
 
-    private WebTextArea text;
     
     public RunCommandResultPanel(RunCommand runCommand) 
     {
-        Font f = new Font("Monospaced", Font.PLAIN, 12);
-        
-        text = new WebTextArea();
-        text.setForeground(Color.white);
-        text.setBackground(Color.black);
-        text.setFont(f);
-        add(text);
-        
+        super();
         runCommand.setListener(this);
     }
 
