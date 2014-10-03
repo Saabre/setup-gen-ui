@@ -131,7 +131,7 @@ public class RemoteResultPanel extends ModuleResultPanel implements RemoteModule
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                options.expanded = false;
+                options.expanded = true;
                 options.size = 400;
 
                 listPanel.addPanel(panel, options);
@@ -156,6 +156,8 @@ public class RemoteResultPanel extends ModuleResultPanel implements RemoteModule
     @Override
     public void onDisconnected() {
         stateValue.setText("Disconnected. Processed.");
+        
+        listPanel.setExpandedForAll(false);
     }
 
     @Override

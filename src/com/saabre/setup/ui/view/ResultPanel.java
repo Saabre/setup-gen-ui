@@ -35,6 +35,7 @@ public class ResultPanel extends JPanel implements MainController.Listener
     private ConfigController configController;
     private List<Module> moduleList;
     private CollapsibleListPanel moduleListPanel;
+    private Module currentModule;
     
     // -- Constructor --
     
@@ -74,6 +75,7 @@ public class ResultPanel extends JPanel implements MainController.Listener
         else if(module instanceof AnalysisModule)
         {
             internalPane = new AnalysisResultPanel((AnalysisModule) module);
+            options.expanded = false;
         }
         
         // Security check --
@@ -129,12 +131,15 @@ public class ResultPanel extends JPanel implements MainController.Listener
 
     @Override
     public void onModuleStart(Module module) {
-        
+        currentModule = module;
     }
 
     @Override
     public void onModuleEnd() {
-        
+        if(currentModule instanceof AnalysisModule)
+        {
+            moduleListPanel.setExpandedForIndex(true, 3);
+        }
     }
 
     

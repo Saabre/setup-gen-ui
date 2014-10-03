@@ -13,7 +13,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
 
 /**
  *
@@ -96,6 +95,27 @@ public class CollapsibleListPanel extends WebPanel {
         
         panel.add(label);
         addItem(panel);  
+    }
+    
+    public void setExpandedForAll(boolean expanded) 
+    {
+        for(Component component : getComponents())
+        {
+            if(component instanceof WebCollapsiblePane)
+            {
+                WebCollapsiblePane panel = (WebCollapsiblePane) component;
+                panel.setExpanded(expanded, true);
+            }
+        }
+    }
+
+    public void setExpandedForIndex(boolean expanded, int index) {
+        Component component = getComponent(index);
+        if(component instanceof WebCollapsiblePane)
+        {
+            WebCollapsiblePane panel = (WebCollapsiblePane) component;
+            panel.setExpanded(expanded, true);
+        }
     }
     
     // -- Getters and setters --
