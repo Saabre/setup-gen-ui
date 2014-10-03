@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
     {
         // Set main layout --
         setLayout(new BorderLayout());
-        setSize(800, 600);
+        setSize(1024, 850);
         
         /* Load menubar --
         WebMenuBar menubar = new WebMenuBar();

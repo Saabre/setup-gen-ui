@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
 
 /**
  *
@@ -41,7 +42,8 @@ public class CollapsibleListPanel extends WebPanel {
         rule = new GridBagConstraints();
         setFinalConstraint();
         rule.weighty = 0;
-        rule.fill = GridBagConstraints.VERTICAL;
+        rule.weightx = 2;
+        rule.fill = GridBagConstraints.BOTH;
         
         index = 0;
     }
